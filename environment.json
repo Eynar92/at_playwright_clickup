@@ -1,0 +1,51 @@
+{
+  "headers": "application/json",
+
+  "test": {
+    "api-url": "https://api.clickup.com/api/v2",
+    "ui-url": "https://app.clickup.com",
+    "users": {
+      "admin": {
+        "key": "",
+        "token": "",
+        "username": "some",
+        "password": "some"
+      },
+      "guest": {
+        "key": "",
+        "token": "",
+        "username": "some",
+        "password": "some"
+      }
+    },
+    "app-data": {
+        "team-space": {
+            "work_space_id": "some"
+        }
+    }
+  },
+
+  "develop": {
+    "api-url": "https://api.clickup.com/api/v2",
+    "ui-url": "https://app.clickup.com",
+    "users": {
+      "admin": {
+        "key": "",
+        "token": "",
+        "username": "some",
+        "password": "some"
+      },
+      "guest": {
+        "key": "",
+        "token": "",
+        "username": "some",
+        "password": "some"
+      }
+    },
+    "app-data": {
+        "team-space": {
+            "work_space_id": "some"
+        }
+    }
+  }
+}

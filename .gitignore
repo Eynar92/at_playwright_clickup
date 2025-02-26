@@ -1,0 +1,13 @@
+.env
+.venv/
+.vscode/
+file.log
+app.log
+__pycache__/
+.pytest_cache/
+node_modules/
+msedgedriver.exe
+geckodriver.exe
+geckodriver
+geckodriver.log
+log
