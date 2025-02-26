@@ -1,0 +1,33 @@
+name: Continuous Integration
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    env:
+      PYTHON_VERSION: ${{secrets.PYTHON_VERSION}}
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{env.PYTHON_VERSION}}
+
+    - name: Install dependencies
+      run: |
+        rm -rf .venv
+        pip install pipenv
+        PIPENV_VENV_IN_PROJECT=1 pipenv install --dev
+        npm install
+        echo "Setup Done!"
+
+    - name: Run pylint
+      run: |
+        echo "Static Code Analysis"
+        pipenv run pylint main/
+        pipenv run pylint tests/
