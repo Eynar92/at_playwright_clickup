@@ -12,14 +12,33 @@ LOGGER = CustomLogger(__name__)
 class RequestManager:
     """Handles API requests using configuration files."""
 
+    _instance = None
+    _initialized = False
+
+    def __new__(cls):
+        """Override __new__ to ensure singleton behavior."""
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
     def __init__(self):
-        self.config = JsonReader.get_json("configuration.json")
-        self.env_name = self.config.get("environment", "test")
-        self.environment = JsonReader.get_json(
-            "environment.json").get(self.env_name, {})
-        self.base_url = self.environment.get("api-url", "")
-        self.headers = {
-            "Content-Type": self.environment.get("headers", "application/json")}
+        """Initializes the instance configuration."""
+        if not self._initialized:
+            self.config = JsonReader.get_json("configuration.json")
+            self.env_name = self.config.get("environment", "test")
+            self.environment = JsonReader.get_json(
+                "environment.json").get(self.env_name, {})
+            self.base_url = self.environment.get("api-url", "")
+            self.headers = {
+                "Content-Type": self.environment.get("headers", "application/json")}
+            RequestManager._initialized = True
+
+    @classmethod
+    def get_instance(cls):
+        """Returns the singleton instance."""
+        if cls._instance is None:
+            cls._instance = cls()
+        return cls._instance
 
     def send_request(self,
                      method: HttpMethods,
